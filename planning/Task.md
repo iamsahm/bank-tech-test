@@ -145,3 +145,7 @@ balance DECIMAL
 -   user types in withdrawal with a fraction of a penny
 -   user types in deposit with a date
 -   user types in withdrawal with a date
+
+# possible todos
+
+change it so that the dates stored are datetime objects, and the date printed is formatted to the desired format
