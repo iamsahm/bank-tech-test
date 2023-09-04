@@ -35,7 +35,11 @@ You'll work alone, and you'll also review your own code so you can practice refl
 -   Data can be kept in memory (it doesn't need to be stored to a database or anything).
 
 -   To handle withdrawals that exceed the balance in the account, I'd like for you to handle them with an error message to the user.
+
 -   And yes I think integrating a date with the withdrawals/deposits is useful for printing the statement, even if we don't need to implement historic changes at this stage
+
+-   Just pence/cents to two decimal places I'd say, anything more than that should return an error
+    (ref questioning the input of fractions of pennies)
 
 ### Acceptance criteria
 
@@ -70,7 +74,7 @@ Once you have completed the challenge and feel happy with your solution, here's 
 
 ## design
 
-### Bank account handler class
+### Account handler class
 
 constructor:
 balance DECIMAL
@@ -95,12 +99,10 @@ prints history with a header (date || credit || debit || balance)
 
 -   deposit/withdraw decimal
 -   deposit/withdraw zero
--   deposit/withdraw fractions of a penny
+-   deposit/withdraw fractions of a penny throws error
 -   deposit/withdraw non-decimal value
 -   withdrawing more than the account has
 -   printing statement formats correctly
--   end to end test with mocked user input
-    -   adds
 
 ### Transaction class
 
