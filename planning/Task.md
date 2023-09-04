@@ -21,11 +21,11 @@ You'll work alone, and you'll also review your own code so you can practice refl
     -   deposit
 
         -   amount DECIMAL
-        -   date
+        -   date DATE
 
     -   withdrawal
         -   amount DECIMAL
-        -   date
+        -   date DATE
 
 -   Account statement (date, amount, balance) printing.
 
@@ -76,13 +76,10 @@ constructor:
 balance DECIMAL
 history [transaction obj]
 
-deposit(amount, optional date)
-adds amount to balance
-updates history with transaction object, passing optional date if given
-
-withdrawal(amount, optional date)
-minuses amount from balance
-updates history with transaction object, passing optional date if given
+changeBalance(amount)
+if balance + amount < 0 throw error
+else balance += amount
+update history with transaction object, passing optional date if given
 
 print statement
 prints history with a header (date || credit || debit || balance)
@@ -98,6 +95,7 @@ prints history with a header (date || credit || debit || balance)
 
 -   deposit/withdraw decimal
 -   deposit/withdraw zero
+-   deposit/withdraw fractions of a penny
 -   deposit/withdraw non-decimal value
 -   withdrawing more than the account has
 -   printing statement formats correctly
@@ -105,8 +103,6 @@ prints history with a header (date || credit || debit || balance)
     -   adds
 
 ### Transaction class
-
-accepts optional date from deposit/withdrawal methods
 
 constructor:
 date DATE
@@ -134,3 +130,16 @@ balance DECIMAL
 -   user types in withdrawal
 -   user types in statement
 -   user types in something else
+-   user types in something in inconsistent case
+-   user types in deposit with a decimal
+-   user types in deposit with a non-decimal
+-   user types in deposit with a zero
+-   user types in deposit with a negative
+-   user types in withdrawal with a decimal
+-   user types in withdrawal with a non-decimal
+-   user types in withdrawal with a zero
+-   user types in withdrawal with a negative
+-   user types in deposit with a fraction of a penny
+-   user types in withdrawal with a fraction of a penny
+-   user types in deposit with a date
+-   user types in withdrawal with a date
