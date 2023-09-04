@@ -62,7 +62,7 @@ describe("AccountHandler", () => {
             const accountHandler = new AccountHandler();
             expect(() => {
                 accountHandler.changeBalance("1000");
-            }).toThrow("Amount must be a number");
+            }).toThrow("Amount must be a non-zero number");
         });
         it("should throw an error if amount has a resolution less than a cent", () => {
             const accountHandler = new AccountHandler();
@@ -71,6 +71,37 @@ describe("AccountHandler", () => {
             }).toThrow(
                 "Amount must have a resolution of no more than 2 decimal places"
             );
+        });
+        it("should throw an error if the amount is zero", () => {
+            const accountHandler = new AccountHandler();
+            expect(() => {
+                accountHandler.changeBalance(0);
+            }).toThrow("Amount must be a non-zero number");
+        });
+        it("accepts a date as a second argument", () => {
+            const accountHandler = new AccountHandler();
+            accountHandler.changeBalance(1000, "10-01-2012");
+            expect(accountHandler.history[0].date).toEqual("10-01-2012");
+        });
+        it("should calculate balance after two deposits", () => {
+            const accountHandler = new AccountHandler();
+            accountHandler.changeBalance(1000);
+            accountHandler.changeBalance(2000);
+            expect(accountHandler.balance).toEqual(3000);
+        });
+    });
+    describe("withdrawal", () => {
+        it("should update balance after withdrawal", () => {
+            const accountHandler = new AccountHandler();
+            accountHandler.changeBalance(1000);
+            accountHandler.changeBalance(-500);
+            expect(accountHandler.balance).toEqual(500);
+        });
+        it("should throw an error if there are insufficient funds", () => {
+            const accountHandler = new AccountHandler();
+            expect(() => {
+                accountHandler.changeBalance(-500);
+            }).toThrow("Insufficient funds");
         });
     });
 });
