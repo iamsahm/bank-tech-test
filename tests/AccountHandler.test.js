@@ -71,13 +71,13 @@ describe("AccountHandler", () => {
             expect(accountHandler.history.length).toEqual(1);
         });
     });
-    // describe("print statement", () => {
-    //     it("should instantiate a statement printer", () => {
-    //         const accountHandler = new AccountHandler();
-    //         accountHandler.printStatement();
-    //         expect(accountHandler.statementPrinter).toBeInstanceOf(
-    //             StatementPrinter
-    //         );
-    //     });
-    // });
+    describe("print statement", () => {
+        it("should instantiate a statement printer", () => {
+            const accountHandler = new AccountHandler();
+            accountHandler.printStatement();
+            expect(accountHandler.statementPrinter).toBeInstanceOf(
+                StatementPrinter
+            );
+        });
+    });
 });
