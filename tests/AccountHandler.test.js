@@ -34,6 +34,25 @@ describe("AccountHandler", () => {
             }).toThrow("Insufficient funds");
         });
     });
+    describe("updateBalance", () => {
+        it("should update the balance with a positive amount", () => {
+            const accountHandler = new AccountHandler();
+            accountHandler.updateBalance(1000);
+            expect(accountHandler.balance).toEqual(1000);
+        });
+        it("should update the balance with a negative amount", () => {
+            const accountHandler = new AccountHandler();
+            accountHandler.updateBalance(-1000);
+            expect(accountHandler.balance).toEqual(-1000);
+        });
+    });
+    describe("addTransaction", () => {
+        it("should add a transaction to the history", () => {
+            const accountHandler = new AccountHandler();
+            accountHandler.addTransaction(1000);
+            expect(accountHandler.history.length).toEqual(1);
+        });
+    });
 
     describe("deposit", () => {
         it("should add a transaction to the history", () => {

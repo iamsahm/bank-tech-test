@@ -40,6 +40,15 @@ class AccountHandler {
         }
     }
 
+    updateBalance(amount) {
+        this.balance += amount;
+    }
+
+    addTransaction(amount) {
+        const transaction = new Transaction(amount);
+        this.history.push(transaction);
+    }
+
     printStatement() {
         if (!this.history.length) {
             throw new Error("You have no transactions to show");
