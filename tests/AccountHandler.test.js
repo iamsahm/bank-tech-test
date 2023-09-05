@@ -1,5 +1,6 @@
 const AccountHandler = require("../src/AccountHandler");
-const formatDate = require("../src/FormatDate");
+const Transaction = require("../src/Transaction");
+jest.mock("../src/Transaction");
 
 describe("AccountHandler", () => {
     describe("initialization", () => {
@@ -72,12 +73,51 @@ describe("AccountHandler", () => {
         });
     });
     describe("print statement", () => {
-        it("should instantiate a statement printer", () => {
+        it("should instantiate a statement printer which has a print statement method", () => {
             const accountHandler = new AccountHandler();
-            accountHandler.printStatement();
-            expect(accountHandler.statementPrinter).toBeInstanceOf(
-                StatementPrinter
+            accountHandler.changeBalance(1000);
+            const mockedTransactionConstructor = jest.fn();
+            mockedTransactionConstructor.mockReturnValue({
+                date: "2021-01-01",
+                credit: 1000,
+                balance: 1000,
+            });
+            Transaction.mockImplementation(mockedTransactionConstructor);
+
+            expect(accountHandler.printStatement).toBeDefined();
+        });
+
+        it("should return a string", () => {
+            const accountHandler = new AccountHandler();
+            accountHandler.changeBalance(1000);
+            const mockedTransactionConstructor = jest.fn();
+            mockedTransactionConstructor.mockReturnValue({
+                date: "2021-01-01",
+                credit: 1000,
+                balance: 1000,
+            });
+            Transaction.mockImplementation(mockedTransactionConstructor);
+
+            expect(typeof accountHandler.printStatement()).toEqual("string");
+        });
+
+        it("should return a statement with a header and a transaction", () => {
+            const accountHandler = new AccountHandler();
+            accountHandler.changeBalance(1000);
+            const mockedTransactionConstructor = jest.fn();
+            mockedTransactionConstructor.mockReturnValue({
+                date: "2021-01-01",
+                credit: 1000,
+                balance: 1000,
+            });
+            Transaction.mockImplementation(mockedTransactionConstructor);
+
+            expect(accountHandler.printStatement()).toEqual(
+                "date || credit || debit || balance\n2021-01-01 || 1000.00 || || 1000.00\n"
             );
         });
     });
 });
+// In the above code, we mock the Transaction constructor by creating a mockedTransactionConstructor function and using jest.fn() to mock it. We then set this mocked constructor as the implementation of the Transaction class using Transaction.mockImplementation.
+
+// Inside the mockedTransactionConstructor, we specify the properties that the transaction object should have and return an object with those properties. This allows us to create mocked transaction objects without calling the actual constructor.

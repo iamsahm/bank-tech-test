@@ -2,7 +2,7 @@ class StatementPrinter {
     constructor(history) {
         this.history = history;
     }
-    printStatement() {
+    returnStatement() {
         if (!this.history.length) {
             throw new Error("You have no transactions to show");
         }
@@ -20,6 +20,7 @@ class StatementPrinter {
             }
             statement += `${transaction.balance.toFixed(2)}\n`;
         });
+        console.log(statement);
 
         return statement;
     }

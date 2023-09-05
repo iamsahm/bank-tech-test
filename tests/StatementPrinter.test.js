@@ -16,26 +16,26 @@ describe("StatementPrinter", () => {
         const statementPrinter = new StatementPrinter([1, 2, 3]);
         expect(statementPrinter.history).toEqual([1, 2, 3]);
     });
-    it("should have a printStatement method", () => {
+    it("should have a returnStatement method", () => {
         const statementPrinter = new StatementPrinter();
-        expect(statementPrinter.printStatement).toBeDefined();
+        expect(statementPrinter.returnStatement).toBeDefined();
     });
-    describe("printStatement", () => {
+    describe("returnStatement", () => {
         it("should throw an error if the history is an empty array", () => {
             const statementPrinter = new StatementPrinter([]);
             expect(() => {
-                statementPrinter.printStatement();
+                statementPrinter.returnStatement();
             }).toThrow("You have no transactions to show");
         });
         it("should return a string", () => {
             const statementPrinter = new StatementPrinter([new Transaction()]);
-            expect(typeof statementPrinter.printStatement()).toEqual("string");
+            expect(typeof statementPrinter.returnStatement()).toEqual("string");
         });
     });
     describe("generateStatement", () => {
         it("should return a statement with a header and a transaction", () => {
             const statementPrinter = new StatementPrinter([new Transaction()]);
-            expect(statementPrinter.printStatement()).toEqual(
+            expect(statementPrinter.returnStatement()).toEqual(
                 "date || credit || debit || balance\n2021-01-01 || 1000.00 || || 1000.00\n"
             );
         });
