@@ -19,6 +19,20 @@ describe("AccountHandler", () => {
                 accountHandler.validateAmount("nan");
             }).toThrow("Amount must be a non-zero number");
         });
+        it("should throw an error for three decimal places", () => {
+            const accountHandler = new AccountHandler();
+            expect(() => {
+                accountHandler.validateAmount(1000.001);
+            }).toThrow(
+                "Amount must have a resolution of no more than 2 decimal places"
+            );
+        });
+        it("should throw an error if the balance with the amount is less than zero", () => {
+            const accountHandler = new AccountHandler();
+            expect(() => {
+                accountHandler.validateAmount(-1000);
+            }).toThrow("Insufficient funds");
+        });
     });
 
     describe("deposit", () => {
