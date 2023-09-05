@@ -1,5 +1,4 @@
 const Transaction = require("./Transaction");
-const formatDate = require("./FormatDate");
 
 class AccountHandler {
     constructor() {
@@ -35,23 +34,23 @@ class AccountHandler {
         this.history.push(transaction);
     }
 
-    printStatement() {
-        if (!this.history.length) {
-            throw new Error("You have no transactions to show");
-        }
-        let statement = "date || credit || debit || balance\n";
-        this.history.reverse().forEach((transaction) => {
-            statement += `${transaction.date} || `;
-            if (transaction.credit) {
-                statement += `${transaction.credit.toFixed(2)} || || `;
-            }
-            if (transaction.debit) {
-                statement += `|| ${Math.abs(transaction.debit).toFixed(2)} || `;
-            }
-            statement += `${transaction.balance.toFixed(2)}\n`;
-        });
-        return statement;
-    }
+    // printStatement() {
+    //     if (!this.history.length) {
+    //         throw new Error("You have no transactions to show");
+    //     }
+    //     let statement = "date || credit || debit || balance\n";
+    //     this.history.reverse().forEach((transaction) => {
+    //         statement += `${transaction.date} || `;
+    //         if (transaction.credit) {
+    //             statement += `${transaction.credit.toFixed(2)} || || `;
+    //         }
+    //         if (transaction.debit) {
+    //             statement += `|| ${Math.abs(transaction.debit).toFixed(2)} || `;
+    //         }
+    //         statement += `${transaction.balance.toFixed(2)}\n`;
+    //     });
+    //     return statement;
+    // }
 }
 
 module.exports = AccountHandler;
