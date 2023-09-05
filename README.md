@@ -27,4 +27,4 @@ Follow the installation guide below to get started.
 
 ## screenshots of the REPL in action
 
-![repl demo](./planning/diagrams/REPL-demo.png)
+![repl demo](./planning/diagrams/REPL_demo.png)
