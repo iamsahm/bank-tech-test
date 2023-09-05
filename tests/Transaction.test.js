@@ -3,11 +3,15 @@ const Transaction = require("../src/Transaction");
 describe("Transaction", () => {
     it("should construct with today's date", () => {
         //spy on Date and get what was returned from new Date in Transaction
-        const spy = jest.spyOn(global, "Date");
+        const mockDate = new Date("2021-01-01");
+        const spy = jest
+            .spyOn(global, "Date")
+            .mockImplementation(() => mockDate);
+
         const transaction = new Transaction(1000, 1000);
-        const date = spy.mock.results[0].value;
+        spy.mockRestore();
         const expectedObject = {
-            date: date,
+            date: mockDate,
             credit: transaction.credit,
             balance: transaction.balance,
         };
