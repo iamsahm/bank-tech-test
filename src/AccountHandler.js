@@ -41,7 +41,6 @@ class AccountHandler {
             }
             statement += `${transaction.balance.toFixed(2)}\n`;
         });
-        console.log(statement);
         return statement;
     }
 }

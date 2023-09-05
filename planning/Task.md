@@ -149,3 +149,5 @@ balance DECIMAL
 # possible todos
 
 change it so that the dates stored are datetime objects, and the date printed is formatted to the desired format
+selection comes from a list deposit, withdraw, print statement
+can't make -deposit or -withdrawal
