@@ -3,20 +3,28 @@
 This application is a REPL that a user can interact with via Node.
 Follow the installation guide below to get started.
 
-# Installation guide
+## Installation guide
 
 1. Clone this repo
 2. Run `npm install` to install dependencies
-3. Run `node` to start the REPL
 
-# how to run the code
+## how to run the code
 
-Variable amounts in the above commands should be entered as a number, with no currency symbol.
-print statement will print a statement of the account history, with the following format:
-date || credit || debit || balance
+1. Navigate to the src file
+   `cd src`
+2. Run `node`
+3. Load the Account Handler with this command:
+   `.load AccountHandler.js`
+4. Instantiate a new bank account instance:
+   `const bank= new AccountHandler`
+5. Call a method to interact with the bank account:
+    - `bank.changeBalance(amount)`
+    - `bank.printStatement()`
 
 # how to run the tests
 
-3. Run `npm test` to run the tests
+1. Run `npm test` to run the tests
 
-# screenshots of the app running
+## screenshots of the REPL in action
+
+![repl demo](./images/repl-demo.png)

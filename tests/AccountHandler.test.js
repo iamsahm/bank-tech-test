@@ -1,4 +1,5 @@
 const AccountHandler = require("../src/AccountHandler");
+const formatDate = require("../src/FormatDate");
 
 describe("AccountHandler", () => {
     describe("initialization", () => {
@@ -25,13 +26,9 @@ describe("AccountHandler", () => {
         it("should add a transaction with the correct date", () => {
             const accountHandler = new AccountHandler();
             accountHandler.changeBalance(1000);
-            let today = new Date().toLocaleDateString("en-gb", {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric",
-            });
-            today = today.replace(/\//g, "-");
-            expect(accountHandler.history[0].date).toEqual(today);
+            expect(accountHandler.history[0].date).toEqual(
+                formatDate(new Date())
+            );
         });
         it("should add a transaction with the correct credit", () => {
             const accountHandler = new AccountHandler();
@@ -46,14 +43,8 @@ describe("AccountHandler", () => {
         it("should add a transaction with the correct date, credit and balance", () => {
             const accountHandler = new AccountHandler();
             accountHandler.changeBalance(1000);
-            let today = new Date().toLocaleDateString("en-gb", {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric",
-            });
-            today = today.replace(/\//g, "-");
             expect(accountHandler.history[0]).toEqual({
-                date: today,
+                date: formatDate(new Date()),
                 credit: 1000,
                 balance: 1000,
             });
