@@ -26,6 +26,12 @@ class AccountHandler {
         this.history.push(transaction);
     }
 
+    validateAmount(amount) {
+        if (typeof amount !== "number" || amount === 0) {
+            throw new Error("Amount must be a non-zero number");
+        }
+    }
+
     printStatement() {
         if (!this.history.length) {
             throw new Error("You have no transactions to show");
@@ -41,7 +47,6 @@ class AccountHandler {
             }
             statement += `${transaction.balance.toFixed(2)}\n`;
         });
-        console.log(statement);
         return statement;
     }
 }
