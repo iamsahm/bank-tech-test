@@ -8,7 +8,7 @@ Follow the installation guide below to get started.
 1. Clone this repo
 2. Run `npm install` to install dependencies
 
-## how to run the code
+## How to run the code
 
 1. Navigate to the src file
    `cd src`
@@ -21,10 +21,10 @@ Follow the installation guide below to get started.
     - `bank.changeBalance(amount)`
     - `bank.printStatement()`
 
-# how to run the tests
+## How to run the tests
 
 1. Run `npm test` to run the tests
 
-## screenshots of the REPL in action
+## Screenshots of the REPL in action
 
 ![repl demo](./planning/diagrams/REPL_demo.png)

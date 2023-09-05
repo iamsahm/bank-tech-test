@@ -14,8 +14,7 @@ You'll work alone, and you'll also review your own code so you can practice refl
 
 -   You should be able to interact with your code via a REPL like IRB or Node. (You don't need to implement a command line interface that takes input from STDIN.)
 
-*   command line interaction
-
+```
 -   Deposits, withdrawal.
 
     -   deposit
@@ -40,6 +39,7 @@ You'll work alone, and you'll also review your own code so you can practice refl
 
 -   Just pence/cents to two decimal places I'd say, anything more than that should return an error
     (ref questioning the input of fractions of pennies)
+```
 
 ### Acceptance criteria
 
@@ -72,13 +72,14 @@ Once you have completed the challenge and feel happy with your solution, here's 
 
 ---
 
-## design
+## Design
 
 ### Account handler class
 
-constructor:
-balance DECIMAL
-history [transaction obj]
+Constructor:
+
+-   balance DECIMAL
+-   history [transaction obj]
 
 changeBalance(amount)
 if balance + amount < 0 throw error
@@ -111,41 +112,3 @@ date DATE
 credit DECIMAL
 debit DECIMAL
 balance DECIMAL
-
-### REPL app
-
-1.  prompt for deposit
-    > amount
-2.  prompt for next decision
-    > deposit, withdrawal, statement
-        returns statement, updates balance/history
-    repeat
-
-#### edge cases:
-
--   user types in something other than deposit, withdrawal, statement
--   user types in something in inconsistent case
-
-#### testing cases:
-
--   user types in deposit
--   user types in withdrawal
--   user types in statement
--   user types in something else
--   user types in something in inconsistent case
--   user types in deposit with a decimal
--   user types in deposit with a non-decimal
--   user types in deposit with a zero
--   user types in deposit with a negative
--   user types in withdrawal with a decimal
--   user types in withdrawal with a non-decimal
--   user types in withdrawal with a zero
--   user types in withdrawal with a negative
--   user types in deposit with a fraction of a penny
--   user types in withdrawal with a fraction of a penny
--   user types in deposit with a date
--   user types in withdrawal with a date
-
-# possible todos
-
-change it so that the dates stored are datetime objects, and the date printed is formatted to the desired format

@@ -12,6 +12,15 @@ describe("AccountHandler", () => {
             expect(accountHandler.balance).toEqual(0);
         });
     });
+    describe("validateAmount", () => {
+        it("should throw an error if amount is not a number", () => {
+            const accountHandler = new AccountHandler();
+            expect(() => {
+                accountHandler.validateAmount("nan");
+            }).toThrow("Amount must be a non-zero number");
+        });
+    });
+
     describe("deposit", () => {
         it("should add a transaction to the history", () => {
             const accountHandler = new AccountHandler();
@@ -40,7 +49,7 @@ describe("AccountHandler", () => {
             accountHandler.changeBalance(1000);
             expect(accountHandler.history[0].balance).toEqual(1000);
         });
-        it("should add a transaction with the correct date, credit and balance", () => {
+        it("should add the correct date, credit and balance", () => {
             const accountHandler = new AccountHandler();
             accountHandler.changeBalance(1000);
             expect(accountHandler.history[0]).toEqual({
@@ -55,7 +64,7 @@ describe("AccountHandler", () => {
                 accountHandler.changeBalance("1000");
             }).toThrow("Amount must be a non-zero number");
         });
-        it("should throw an error if amount has a resolution less than a cent", () => {
+        it("throws error with less than a cent resolution", () => {
             const accountHandler = new AccountHandler();
             expect(() => {
                 accountHandler.changeBalance(1000.001);
