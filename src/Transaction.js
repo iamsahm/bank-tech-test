@@ -1,5 +1,5 @@
 class Transaction {
-    constructor(amount, balance) {
+    constructor(amount) {
         this.date = new Date();
         if (amount > 0) {
             this.credit = amount;
@@ -7,7 +7,6 @@ class Transaction {
         if (amount < 0) {
             this.debit = amount;
         }
-        this.balance = balance;
     }
 }
 
