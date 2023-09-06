@@ -106,18 +106,15 @@ describe("AccountHandler", () => {
             accountHandler.changeBalance(1000);
             const mockedTransactionConstructor = jest.fn();
             mockedTransactionConstructor.mockReturnValue({
-                date: "2021-01-01",
+                date: new Date("2021-01-01"),
                 credit: 1000,
                 balance: 1000,
             });
             Transaction.mockImplementation(mockedTransactionConstructor);
 
             expect(accountHandler.printStatement()).toEqual(
-                "date || credit || debit || balance\n2021-01-01 || 1000.00 || || 1000.00\n"
+                "date || credit || debit || balance\n01-01-2021 || 1000.00 || || 1000.00\n"
             );
         });
     });
 });
-// In the above code, we mock the Transaction constructor by creating a mockedTransactionConstructor function and using jest.fn() to mock it. We then set this mocked constructor as the implementation of the Transaction class using Transaction.mockImplementation.
-
-// Inside the mockedTransactionConstructor, we specify the properties that the transaction object should have and return an object with those properties. This allows us to create mocked transaction objects without calling the actual constructor.

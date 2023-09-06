@@ -4,7 +4,7 @@ const Transaction = require("../src/Transaction");
 jest.mock("../src/Transaction", () => {
     return jest.fn().mockImplementation(() => {
         return {
-            date: "2021-01-01",
+            date: new Date("2021-01-01"),
             credit: 1000,
             balance: 1000,
         };
@@ -13,8 +13,8 @@ jest.mock("../src/Transaction", () => {
 
 describe("StatementPrinter", () => {
     it("should construct with the passed in history array", () => {
-        const statementPrinter = new StatementPrinter([1, 2, 3]);
-        expect(statementPrinter.history).toEqual([1, 2, 3]);
+        const statementPrinter = new StatementPrinter([new Transaction()]);
+        expect(statementPrinter.history).toEqual([new Transaction()]);
     });
     it("should have a returnStatement method", () => {
         const statementPrinter = new StatementPrinter();
@@ -36,7 +36,7 @@ describe("StatementPrinter", () => {
         it("should return a statement with a header and a transaction", () => {
             const statementPrinter = new StatementPrinter([new Transaction()]);
             expect(statementPrinter.returnStatement()).toEqual(
-                "date || credit || debit || balance\n2021-01-01 || 1000.00 || || 1000.00\n"
+                "date || credit || debit || balance\n01-01-2021 || 1000.00 || || 1000.00\n"
             );
         });
     });

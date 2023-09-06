@@ -1,3 +1,5 @@
+const formatDate = require("./FormatDate");
+
 class StatementPrinter {
     constructor(history) {
         this.history = history;
@@ -10,8 +12,10 @@ class StatementPrinter {
     }
     generateStatement() {
         let statement = "date || credit || debit || balance\n";
+
         this.history.reverse().forEach((transaction) => {
-            statement += `${transaction.date} || `;
+            const date = formatDate(new Date(transaction.date));
+            statement += `${date} || `;
             if (transaction.credit) {
                 statement += `${transaction.credit.toFixed(2)} || || `;
             }
@@ -20,7 +24,6 @@ class StatementPrinter {
             }
             statement += `${transaction.balance.toFixed(2)}\n`;
         });
-        console.log(statement);
 
         return statement;
     }

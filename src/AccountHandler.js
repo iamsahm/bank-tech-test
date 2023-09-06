@@ -31,7 +31,7 @@ class AccountHandler {
     }
 
     addTransaction(amount) {
-        const transaction = new Transaction(amount);
+        const transaction = new Transaction(amount, this.balance);
         this.history.push(transaction);
     }
 
