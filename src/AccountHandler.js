@@ -4,11 +4,9 @@ const StatementPrinter = require("./StatementPrinter");
 class AccountHandler {
     constructor() {
         this.history = [];
-        this.balance = 0;
     }
     changeBalance(amount) {
         this.validateAmount(amount);
-        this.updateBalance(amount);
         this.addTransaction(amount);
     }
 
@@ -21,17 +19,10 @@ class AccountHandler {
                 "Amount must have a resolution of no more than 2 decimal places"
             );
         }
-        if (this.balance + amount < 0) {
-            throw new Error("Insufficient funds");
-        }
-    }
-
-    updateBalance(amount) {
-        this.balance += amount;
     }
 
     addTransaction(amount) {
-        const transaction = new Transaction(amount, this.balance);
+        const transaction = new Transaction(amount);
         this.history.push(transaction);
     }
 
