@@ -26,10 +26,14 @@ You'll work alone, and you'll also review your own code so you can practice refl
         -   amount DECIMAL
         -   date DATE
 
+* update: deposit and withdrawal can happen in the same method
+
 -   Account statement (date, amount, balance) printing.
 
     -   statement
         -   returns history of date, amount, balance in list
+
+* update: moved this to separate class
 
 -   Data can be kept in memory (it doesn't need to be stored to a database or anything).
 

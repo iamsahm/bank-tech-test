@@ -2,7 +2,6 @@ const Transaction = require("../src/Transaction");
 
 describe("Transaction", () => {
     it("should construct with today's date", () => {
-        //spy on Date and get what was returned from new Date in Transaction
         const mockDate = new Date("2021-01-01");
         const spy = jest
             .spyOn(global, "Date")
