@@ -20,7 +20,7 @@ You'll work alone, and you'll also review your own code so you can practice refl
     -   deposit
 
         -   amount DECIMAL
-        -   date DATE
+        -   ~~date DATE~~
 
     -   withdrawal
         -   amount DECIMAL
@@ -98,7 +98,7 @@ prints history with a header (date || credit || debit || balance)
 -   deposit/withdraw non decimal values
 -   deposit/withdraw zero value
 -   withdrawing more than the deposited funds
--   inputting date to handle historic changes
+-   ~~inputting date to handle historic changes~~
 
 #### testing cases:
 
@@ -113,6 +113,6 @@ prints history with a header (date || credit || debit || balance)
 
 constructor:
 date DATE
-credit DECIMAL
-debit DECIMAL
-balance DECIMAL
+credit NUMBER
+debit NUMBER
+balance NUMBER

@@ -1,6 +1,7 @@
 # Bank Tech Test introduction
 
 This application is a REPL that a user can interact with via Node.
+
 Follow the installation guide below to get started.
 
 ## Installation guide
@@ -28,3 +29,27 @@ Follow the installation guide below to get started.
 ## Screenshots of the REPL in action
 
 ![repl demo](./planning/diagrams/REPL_demo.png)
+
+## Design process
+
+The program runs from three classes:
+
+-   AccountHandler
+    -   Holds the balance and history of transactions
+    -   Validates the amounts entered by the user
+    -   Calls methods from the other classes to update its state
+-   StatementPrinter
+
+    -   Takes the array of transactions as an argument
+    -   Passes the array to the Transaction class to return the formatted history
+
+-   Transaction
+    -   Takes an amount and balance as arguments
+    -   Constructs with the current date, supplied balance and attributes the amount to either credit or debit
+
+This class structure was chosen to follow the Single Responsibility Principle. Each class has a single responsibility and the classes are loosely coupled.
+With this structure it is easy to update, maintain and extend the code.
+
+The program runs in node with jest managing the test facility. The dependencies are lightweight and only extend as far as necessary to meet the requirements.
+
+To extend this program, I would implement a CLI interface to allow the user to interact with the program without having to use the REPL. The beginnings of this are stored on a branch called 'cli'.
