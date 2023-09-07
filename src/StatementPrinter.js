@@ -12,18 +12,24 @@ class StatementPrinter {
     }
     generateStatement() {
         let statement = "date || credit || debit || balance\n";
+        let balance = this.history.reduce((acc, transaction) => {
+            return acc + transaction.amount;
+        }, 0);
 
         this.history.reverse().forEach((transaction) => {
             const date = formatDate(new Date(transaction.date));
+            const formattedAmount = Math.abs(transaction.amount).toFixed(2);
             statement += `${date} || `;
-            if (transaction.credit) {
-                statement += `${transaction.credit.toFixed(2)} || || `;
+            if (transaction.amount > 0) {
+                statement += `${formattedAmount} || || `;
             }
-            if (transaction.debit) {
-                statement += `|| ${Math.abs(transaction.debit).toFixed(2)} || `;
+            if (transaction.amount < 0) {
+                statement += `|| ${formattedAmount} || `;
             }
-            statement += `${transaction.balance.toFixed(2)}\n`;
+            statement += `${balance.toFixed(2)}\n`;
+            balance -= transaction.amount;
         });
+        console.log("statement", statement);
 
         return statement;
     }
