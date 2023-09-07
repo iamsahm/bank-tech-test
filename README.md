@@ -28,24 +28,24 @@ Follow the installation guide below to get started.
 
 ## Screenshots of the REPL in action
 
-![repl demo](./planning/diagrams/REPL_demo.png)
+![repl demo](./demo.png)
 
 ## Design process
 
 The program runs from three classes:
 
 -   AccountHandler
-    -   Holds the balance and history of transactions
+    -   Holds the history of transactions
     -   Validates the amounts entered by the user
-    -   Calls methods from the other classes to update its state
+    -   Calls methods from the other classes to update its state and return the statement
 -   StatementPrinter
 
     -   Takes the array of transactions as an argument
     -   Passes the array to the Transaction class to return the formatted history
 
 -   Transaction
-    -   Takes an amount and balance as arguments
-    -   Constructs with the current date, supplied balance and attributes the amount to either credit or debit
+    -   Takes an amount as an argument
+    -   Constructs with the current date and stores the amount.
 
 This class structure was chosen to follow the Single Responsibility Principle. Each class has a single responsibility and the classes are loosely coupled.
 With this structure it is easy to update, maintain and extend the code.

@@ -5,6 +5,7 @@ class AccountHandler {
     constructor() {
         this.history = [];
     }
+
     changeBalance(amount) {
         this.validateAmount(amount);
         this.addTransaction(amount);

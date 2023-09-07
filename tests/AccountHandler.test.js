@@ -1,16 +1,26 @@
 const AccountHandler = require("../src/AccountHandler");
 const Transaction = require("../src/Transaction");
 jest.mock("../src/Transaction");
+// refactor the mock implementation method
+
+function mockTransaction(amount, date) {
+    const mockedTransactionConstructor = jest.fn();
+    mockedTransactionConstructor.mockReturnValue({
+        date: new Date(date),
+        amount: amount,
+    });
+    Transaction.mockImplementation(mockedTransactionConstructor);
+}
 
 describe("AccountHandler", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     describe("initialization", () => {
         it("should have an empty history array", () => {
             const accountHandler = new AccountHandler();
             expect(accountHandler.history).toEqual([]);
-        });
-        it("should have a balance of 0", () => {
-            const accountHandler = new AccountHandler();
-            expect(accountHandler.balance).toEqual(0);
         });
     });
     describe("validateAmount", () => {
@@ -35,18 +45,6 @@ describe("AccountHandler", () => {
             }).toThrow("Insufficient funds");
         });
     });
-    describe("updateBalance", () => {
-        it("should update the balance with a positive amount", () => {
-            const accountHandler = new AccountHandler();
-            accountHandler.updateBalance(1000);
-            expect(accountHandler.balance).toEqual(1000);
-        });
-        it("should update the balance with a negative amount", () => {
-            const accountHandler = new AccountHandler();
-            accountHandler.updateBalance(-1000);
-            expect(accountHandler.balance).toEqual(-1000);
-        });
-    });
     describe("addTransaction", () => {
         it("should add a transaction to the history", () => {
             const accountHandler = new AccountHandler();
@@ -55,19 +53,23 @@ describe("AccountHandler", () => {
         });
     });
     describe("changeBalance", () => {
-        it("should change the balance with a valid positive amount", () => {
+        it("should change the history with a valid positive amount", () => {
             const accountHandler = new AccountHandler();
+            mockTransaction(1000, "2021-01-01");
+
             accountHandler.changeBalance(1000);
-            expect(accountHandler.balance).toEqual(1000);
+            expect(accountHandler.history[0].amount).toEqual(1000);
         });
-        it("should change the balance with a valid negative amount", () => {
+        it("should change the history with a valid negative amount", () => {
             const accountHandler = new AccountHandler();
             accountHandler.changeBalance(1000);
+            mockTransaction(-1000, "2021-01-01");
             accountHandler.changeBalance(-1000);
-            expect(accountHandler.balance).toEqual(0);
+            expect(accountHandler.history[1].amount).toEqual(-1000);
         });
         it("should add a transaction to the history", () => {
             const accountHandler = new AccountHandler();
+            mockTransaction(1000, "2021-01-01");
             accountHandler.changeBalance(1000);
             expect(accountHandler.history.length).toEqual(1);
         });
@@ -75,45 +77,34 @@ describe("AccountHandler", () => {
     describe("print statement", () => {
         it("should instantiate a statement printer which has a print statement method", () => {
             const accountHandler = new AccountHandler();
-            accountHandler.changeBalance(1000);
-            const mockedTransactionConstructor = jest.fn();
-            mockedTransactionConstructor.mockReturnValue({
-                date: "2021-01-01",
-                credit: 1000,
-                balance: 1000,
-            });
-            Transaction.mockImplementation(mockedTransactionConstructor);
-
             expect(accountHandler.printStatement).toBeDefined();
         });
 
         it("should return a string", () => {
             const accountHandler = new AccountHandler();
             accountHandler.changeBalance(1000);
-            const mockedTransactionConstructor = jest.fn();
-            mockedTransactionConstructor.mockReturnValue({
-                date: "2021-01-01",
-                credit: 1000,
-                balance: 1000,
-            });
-            Transaction.mockImplementation(mockedTransactionConstructor);
-
+            mockTransaction(1000, "2021-01-01");
             expect(typeof accountHandler.printStatement()).toEqual("string");
         });
 
         it("should return a statement with a header and a transaction", () => {
             const accountHandler = new AccountHandler();
+            mockTransaction(1000, "2021-01-01");
             accountHandler.changeBalance(1000);
-            const mockedTransactionConstructor = jest.fn();
-            mockedTransactionConstructor.mockReturnValue({
-                date: new Date("2021-01-01"),
-                credit: 1000,
-                balance: 1000,
-            });
-            Transaction.mockImplementation(mockedTransactionConstructor);
-
             expect(accountHandler.printStatement()).toEqual(
                 "date || credit || debit || balance\n01-01-2021 || 1000.00 || || 1000.00\n"
+            );
+        });
+        it("should return a statement with a header and multiple transactions", () => {
+            const accountHandler = new AccountHandler();
+            mockTransaction(1000, "2021-01-01");
+            accountHandler.changeBalance(1000);
+            mockTransaction(2000, "2021-01-02");
+            accountHandler.changeBalance(2000);
+            mockTransaction(-500, "2021-01-03");
+            accountHandler.changeBalance(-500);
+            expect(accountHandler.printStatement()).toEqual(
+                "date || credit || debit || balance\n03-01-2021 || || 500.00 || 2500.00\n02-01-2021 || 2000.00 || || 3000.00\n01-01-2021 || 1000.00 || || 1000.00\n"
             );
         });
     });

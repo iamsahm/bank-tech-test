@@ -15,7 +15,6 @@ class StatementPrinter {
         let balance = this.history.reduce((acc, transaction) => {
             return acc + transaction.amount;
         }, 0);
-
         this.history.reverse().forEach((transaction) => {
             const date = formatDate(new Date(transaction.date));
             const formattedAmount = Math.abs(transaction.amount).toFixed(2);
@@ -29,7 +28,6 @@ class StatementPrinter {
             statement += `${balance.toFixed(2)}\n`;
             balance -= transaction.amount;
         });
-
         return statement;
     }
 }

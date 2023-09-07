@@ -116,3 +116,11 @@ date DATE
 credit NUMBER
 debit NUMBER
 balance NUMBER
+
+## updates
+
+-   You might not need to manage a specific attribute for the balance, because you can recalculate the current balance by "replaying" the list of transactions from the initial state to this point. This simplifies the code and avoids duplication of information (having the balance both as a numeric variable and has an "aggregate" of all the transactions), which can potentially cause errors and inconsistent state, e.g by having the list of transactions and balance out of sync.
+    -   calculate the balance by iterating through the transactions and adding the credit and subtracting the debit 
+        * added and refactored tests
+-   In our tests, we try to control non-deterministic values which includes time. I recommend refactoring your tests to use frozen dates rather than today's date, which will also allow you to test the acceptance criteria has been met (reverse chronological order of transactions across multiple dates).
+-   In your statement printer, you take the transaction history as an argument in the constructor. This means that if the user wishes to print their statement a second time, they would need to make a new instance of the statement printer. If you pass this argument straight to the printer function inside the statement printer instead, the instance can be re-used.

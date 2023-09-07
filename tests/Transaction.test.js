@@ -1,31 +1,26 @@
 const Transaction = require("../src/Transaction");
 
 describe("Transaction", () => {
-    it("should construct with today's date", () => {
+    it("should construct with a date", () => {
         const mockDate = new Date("2021-01-01");
         const spy = jest
             .spyOn(global, "Date")
             .mockImplementation(() => mockDate);
 
-        const transaction = new Transaction(1000, 1000);
+        const transaction = new Transaction(1000);
         spy.mockRestore();
         const expectedObject = {
             date: mockDate,
-            credit: transaction.credit,
-            balance: transaction.balance,
+            amount: 1000,
         };
         expect(transaction).toEqual(expectedObject);
     });
     it("should construct with a credit amount", () => {
-        const transaction = new Transaction(1000, 1000);
-        expect(transaction.credit).toEqual(1000);
+        const transaction = new Transaction(1000);
+        expect(transaction.amount).toEqual(1000);
     });
     it("should construct with a debit amount", () => {
-        const transaction = new Transaction(-1000, 1000);
-        expect(transaction.debit).toEqual(-1000);
-    });
-    it("should construct with a balance", () => {
-        const transaction = new Transaction(1000, 1000);
-        expect(transaction.balance).toEqual(1000);
+        const transaction = new Transaction(-1000);
+        expect(transaction.amount).toEqual(-1000);
     });
 });
