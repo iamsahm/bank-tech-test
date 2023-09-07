@@ -11,6 +11,12 @@ class AccountHandler {
     }
 
     validateAmount(amount) {
+        const balance = this.history.reduce((acc, transaction) => {
+            return acc + transaction.amount;
+        }, 0);
+        if (balance + amount < 0) {
+            throw new Error("Insufficient funds");
+        }
         if (typeof amount !== "number" || amount === 0) {
             throw new Error("Amount must be a non-zero number");
         }

@@ -29,7 +29,6 @@ class StatementPrinter {
             statement += `${balance.toFixed(2)}\n`;
             balance -= transaction.amount;
         });
-        console.log("statement", statement);
 
         return statement;
     }
