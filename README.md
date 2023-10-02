@@ -1,5 +1,7 @@
 # Bank Tech Test introduction
 
+The Bank tech test is a mock technical assessment set by Maker's Academy. [The brief is detailed here] (./planning/spec.md)
+
 This application is a REPL that a user can interact with via Node.
 
 Follow the installation guide below to get started.
